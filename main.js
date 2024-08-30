@@ -44,7 +44,7 @@ class D3 {
     var projection = d3
       .geoAlbersUsa()
       .translate([this.svgWidth / 2, this.svgHeight / 2])
-      .scale([this.svgWidth * 0.9]);
+      .scale([this.svgWidth * 0.8]);
 
     //Define path generator
     this.path = d3.geoPath(projection);
@@ -130,7 +130,7 @@ class D3 {
       .attr("fill", "black")
       .attr("transform", `translate(${this.svgWidth * 0.9},${this.svgHeight * 0.9})`)
       .attr("text-anchor", "middle")
-      .style("font", `${Math.min(this.svgHeight, this.svgWidth) / 50}px sans-serif`)
+      .style("font", `${Math.min(this.svgHeight, this.svgWidth) / 70}px sans-serif`)
       .selectAll()
       .data(sqrtScale.ticks(0).concat([300, 200, 100, 50, 10, 1]))
       .join("g");
