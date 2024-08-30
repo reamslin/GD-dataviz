@@ -44,7 +44,7 @@ class D3 {
     var projection = d3
       .geoAlbersUsa()
       .translate([this.svgWidth / 2, this.svgHeight / 2])
-      .scale([this.svgWidth]);
+      .scale([this.svgWidth * 0.9]);
 
     //Define path generator
     this.path = d3.geoPath(projection);
