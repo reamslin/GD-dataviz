@@ -41,6 +41,17 @@ class D3 {
       });
     });
 
+    console.log(data.length);
+
+    let cities = data.map((s) => s.city);
+    console.log(this.citiesShows.length);
+
+    for (let city of this.citiesShows) {
+      if (!cities.includes(city.city)) {
+        console.log(city);
+      }
+    }
+
     var projection = d3
       .geoAlbersUsa()
       .translate([this.svgWidth / 2, this.svgHeight / 2])
@@ -88,13 +99,13 @@ class D3 {
       .attr("fill", "lightgrey")
       .attr("opacity", 0.75)
       .attr("stroke", "black")
-      .attr("stroke-width", 2)
+      .attr("stroke-width", ".1em")
       .attr("stroke-linejoin", "round");
 
     var sqrtScale = d3
       .scaleSqrt()
       .domain([0, Math.max(...data.map((d) => d.shows))])
-      .range([Math.min(this.svgHeight, this.svgWidth) / 150, Math.min(this.svgHeight, this.svgWidth) / 15]);
+      .range([this.svgWidth * 0.003, this.svgWidth * 0.05]);
 
     this.g = this.map.append("g");
 
@@ -120,26 +131,32 @@ class D3 {
         return `cityviz${d.state_id}${d.city.replaceAll(" ", "")}`;
       })
       .attr("fill", "url(#image)")
-      .attr("fill-opacity", 0.75)
+      .attr("fill-opacity", 0.7)
       .attr("stroke", "#fff")
-      .attr("stroke-width", "0.1em")
+      .attr("stroke-width", ".05em")
       .style("pointer-events", "none");
 
     this.legend = this.svg
       .append("g")
       .attr("fill", "black")
-      .attr("transform", `translate(${this.svgWidth * 0.9},${this.svgHeight * 0.9})`)
+      .attr(
+        "transform",
+        `translate(${this.svgWidth - this.svgWidth * 0.1},${Math.min(
+          this.svgHeight - this.svgWidth * 0.1,
+          this.svgWidth + this.svgWidth * 0.1
+        )})`
+      )
       .attr("text-anchor", "middle")
-      .style("font", `${Math.min(this.svgHeight, this.svgWidth) / 70}px sans-serif`)
+      .style("font", `${Math.min(this.svgWidth / 100, this.svgHeight / 50)}px sans-serif`)
       .selectAll()
-      .data(sqrtScale.ticks(0).concat([300, 200, 100, 50, 10, 1]))
+      .data(sqrtScale.ticks(0).concat([300, 150, 100, 50, 10, 1]))
       .join("g");
 
     this.legend
       .append("circle")
       .attr("fill", "none")
       .attr("stroke", "white")
-      .attr("stroke-width", "0.1em")
+      .attr("stroke-width", ".05em")
       .attr("stroke-opacity", 1)
       .attr("cy", (d) => -sqrtScale(d))
       .attr("r", sqrtScale);
