@@ -5,8 +5,8 @@ import data from "./data.js";
 
 class D3 {
   constructor() {
-    this.svgHeight = window.innerHeight;
     this.svgWidth = window.innerWidth;
+    this.svgHeight = this.svgWidth * 0.56;
     this.citiesShows = data;
     this.citiesJSON = usCitiesJSON;
     this.usJSON = usJSON;
@@ -141,10 +141,8 @@ class D3 {
       .attr("fill", "black")
       .attr(
         "transform",
-        `translate(${this.svgWidth - this.svgWidth * 0.1},${Math.min(
-          this.svgHeight - this.svgWidth * 0.1,
-          this.svgWidth + this.svgWidth * 0.1
-        )})`
+        `translate(${this.svgWidth - this.svgWidth * 0.1},
+          ${this.svgHeight - this.svgWidth * 0.05})`
       )
       .attr("text-anchor", "middle")
       .style("font", `${Math.min(this.svgWidth / 100, this.svgHeight / 50)}px sans-serif`)
